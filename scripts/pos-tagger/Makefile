@@ -11,12 +11,14 @@ FRENCH_TEST = format=TREES,/u/nlp/data/lexparser/trees/FrenchCC/FTB-Test.utf8.tx
 
 GERMAN_TEST = format=TREES,trf=edu.stanford.nlp.trees.international.negra.NegraPennTreeReaderFactory,/u/nlp/data/GermanACL08/negra/negra_3.mrg
 
+HUNGARIAN_TEST = format=TSV,comments=true,wordColumn=1,tagColumn=3,/home/john/stanza/data/tokenize/hu_szeged.test.gold.conllu
+
 SPANISH_TEST = format=TREES,/u/nlp/data/spanish/ancora/ancora.test,/u/nlp/data/spanish/ldc/ldc-NW.test,/u/nlp/data/spanish/ldc/ldc-DF.test
 
 .SECONDEXPANSION:
 
-all: arabic chinese english french german spanish testing wsj
-.PHONY: all arabic chinese english french german spanish testing wsj
+all: arabic chinese english french german hungarian spanish testing wsj
+.PHONY: all arabic chinese english french german hungarian spanish testing wsj
 
 arabic: arabic.tagger  arabic-train.tagger
 
@@ -59,6 +61,15 @@ german-dewac.tagger german-fast.tagger german-fast-caseless.tagger german-hgc.ta
 	@echo Will test on $(GERMAN_TEST)
 	java -mx6g edu.stanford.nlp.tagger.maxent.MaxentTagger -props $@.props > $@.out 2>&1
 	java -mx6g edu.stanford.nlp.tagger.maxent.MaxentTagger -model $@ -testFile $(GERMAN_TEST)  -verboseResults false >> $@.out 2>&1
+
+hungarian: hungarian.tagger
+
+hungarian.tagger: $$@.props
+	@echo Training $@
+	@echo Will test on $(HUNGARIAN_TEST)
+	java -mx6g edu.stanford.nlp.tagger.maxent.MaxentTagger -props $@.props > $@.out 2>&1
+	java -mx6g edu.stanford.nlp.tagger.maxent.MaxentTagger -model $@ -testFile $(HUNGARIAN_TEST)  -verboseResults false >> $@.out 2>&1
+
 
 spanish: spanish.tagger spanish-distsim.tagger
 
