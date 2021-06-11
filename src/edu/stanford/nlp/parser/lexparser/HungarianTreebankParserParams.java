@@ -9,7 +9,7 @@ import edu.stanford.nlp.ling.HasWord;
 import edu.stanford.nlp.ling.Word;
 import edu.stanford.nlp.trees.DiskTreebank;
 import edu.stanford.nlp.trees.HeadFinder;
-import edu.stanford.nlp.trees.LeftHeadFinder;
+import edu.stanford.nlp.trees.RightHeadFinder;
 import edu.stanford.nlp.trees.MemoryTreebank;
 import edu.stanford.nlp.trees.PennTreeReaderFactory;
 import edu.stanford.nlp.trees.Tree;
@@ -33,7 +33,7 @@ public class HungarianTreebankParserParams extends AbstractTreebankParserParams 
   public HungarianTreebankParserParams() {
     super(new HungarianTreebankLanguagePack());
     // TODO: make a Hungarian specific HeadFinder or build one that can be learned
-    headFinder = new LeftHeadFinder();
+    headFinder = new RightHeadFinder();
   }
 
   private HeadFinder headFinder;
