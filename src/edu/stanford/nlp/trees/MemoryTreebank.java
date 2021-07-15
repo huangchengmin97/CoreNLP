@@ -112,6 +112,18 @@ public final class MemoryTreebank extends Treebank implements FileProcessor, Lis
     parseTrees = trees;
   }
 
+
+  /**
+   * Create a new tree bank.  The list of trees passed in is simply placed
+   * in the Treebank.  It is not copied.
+   *
+   * @param trees    The trees to put in the Treebank.
+   */
+  public MemoryTreebank(List<Tree> trees) {
+    super(new LabeledScoredTreeReaderFactory(new TreeNormalizer()));
+    parseTrees = trees;
+  }
+
   /**
    * Create a new Treebank.
    *
